@@ -1,2 +1,2 @@
 # Cafeteria
-Proyec interdisciplinario de la cafeteria del tio
+Proyecto interdisciplinario de la cafeteria del tio
