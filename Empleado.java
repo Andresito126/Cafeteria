@@ -1,13 +1,43 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.mycompany.main;
 
-/**
- *
- * @author moral
- */
-public class Empleado {
+public class Empleado extends Persona {
+    //Atributos
+    private String fechaNacimiento;
+    private String direccion;
+    private long numeroTelefono;
     
+    public Empleado(){}
+    
+    //OBJETO
+    
+    DatosLaborales datosLaborales = new DatosLaborales();
+
+    //Metodos get y set
+    
+    public String getFechaNacimiento(){
+        return fechaNacimiento;
+    }
+
+    public void setFechaNacimiento(String fechaNacimiento){
+        this.fechaNacimiento = fechaNacimiento;
+    }
+    ////
+
+    public String getDireccion(){
+        return direccion;
+    }
+
+    public void setDireccion(String direccion){
+        this.direccion = direccion;
+    }
+    ////
+
+    public long getNumeroTelefono(){
+        return numeroTelefono;
+    }
+
+    public void setNumeroTelefono(long numeroTelefono){
+        this.numeroTelefono=numeroTelefono;
+    }
+
 }
