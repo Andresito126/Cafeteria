@@ -1,13 +1,31 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-package com.mycompany.main;
+import java.util.ArrayList;
+import java.util.Scanner;
 
-/**
- *
- * @author moral
- */
 public class GestionEmpleado {
-    
+
+    private ArrayList<Empleado> listaEmpleados = new ArrayList<Empleado>();
+
+    public ArrayList<Empleado> getListaEmpleados() {
+        return listaEmpleados;
+    }
+
+    public void setListaEmpleados(Empleado empleado) {
+        this.listaEmpleados.add(empleado);
+    }
+
+    public void registrarDatosEmpleado() {
+        
+    }
+
+    public void actualizarDatosEmpleado() {
+
+    }
+
+    public void eliminarDatosEmpleado() {
+
+    }
+
+    public void verHistorialTrabajoEmpleado() {
+
+    }
 }

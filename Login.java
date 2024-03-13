@@ -1,13 +1,17 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-package com.mycompany.main;
+import java.util.ArrayList;
 
-/**
- *
- * @author moral
- */
 public class Login {
+    private ArrayList <Persona> listaUsuarios = new ArrayList<Persona>();
+
+    public ArrayList<Persona> getListaUsuarios() {
+        return listaUsuarios;
+    }
     
+    public void setListaUsuarios(Persona obj) {
+        this.listaUsuarios.add(obj);
+    }
+
+    public void autenticarAcceso(){
+
+    }
 }
