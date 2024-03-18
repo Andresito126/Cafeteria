@@ -1,7 +1,7 @@
 public class DatoLaboral {
     private double listaAsistencia[] = new double[5];
     private double listaHorasTrabajadas[] = new double[5];
-    private String salarioBase; 
+    private int salarioBase; 
     private double sueldo;
     private String fechaContratacion;
     private String puestoTrabajo;
@@ -22,12 +22,12 @@ public class DatoLaboral {
         this.listaHorasTrabajadas = listaHorasTrabajadas;
     }
 
-    public String getSalariobase() {
+    public int getSalarioBase() {
         return salarioBase;
     }
 
-    public void setSalariobase(String salariobase) {
-        this.salarioBase = salariobase;
+    public void setSalarioBase(int salarioBase) {
+        this.salarioBase = salarioBase;
     }
 
     public double getSueldo() {

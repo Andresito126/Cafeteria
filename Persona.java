@@ -1,11 +1,13 @@
 public class Persona {
     protected String nombre;
-    protected int edad;
     protected CredencialAcceso sesion;
 
-    public Persona(String nombre, int edad) {
+    public Persona(){
+        
+    }
+
+    public Persona(String nombre) {
         this.nombre = nombre;
-        this.edad = edad;
     }
 
     public String getNombre() {
@@ -16,14 +18,6 @@ public class Persona {
         this.nombre = nombre;
     }
 
-    public int getEdad() {
-        return edad;
-    }
-
-    public void setEdad(int edad) {
-        this.edad = edad;
-    }
-
     public CredencialAcceso getSesion() {
         return sesion;
     }
@@ -31,5 +25,4 @@ public class Persona {
     public void setSesion(CredencialAcceso sesion) {
         this.sesion = sesion;
     }
-    
 }
