@@ -8,9 +8,19 @@ public class GestionEmpleado {
     //Atributos 
 
    
-    ArrayList<Empleado> listaEmpleados = new ArrayList<>();
+    ArrayList<Empleado> listaEmpleados = new ArrayList<Empleado>();
 
     Empleado empleado = new Empleado();
+
+    public ArrayList<Empleado> getListaEmpleados(){
+        return listaEmpleados;
+    }
+
+    public void setListaEmpleados(Empleado empleado){
+        this.listaEmpleados= listaEmpleados;
+    }
+   
+    
 
     //Métodos funcionales
 
