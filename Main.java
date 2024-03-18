@@ -1,6 +1,4 @@
 
-package com.mycompany.main;
-
 public class Main {
 
 
@@ -8,6 +6,8 @@ public class Main {
 
         GestionEmpleado objGestion = new GestionEmpleado(); 
         objGestion.registarDatosEmpleado();
+        DatosLaborales objDatos = new DatosLaborales();
+        objDatos.registrarEntrada();
         
 
         System.out.println("Hello World!");

@@ -1,4 +1,4 @@
-package com.mycompany.main;
+
 import java.util.Scanner;
 import java.util.ArrayList;
 
@@ -51,10 +51,10 @@ public class GestionEmpleado {
         System.out.println("Ingrese la fecha de contratación:");
         empleado.datosLaborales.setFechaContratacion(entrada.nextLine());
 
-        System.out.println("Ingrese la fecha de contratación:");
+        System.out.println("Ingrese el puesto de trabajo");
         empleado.datosLaborales.setPuestoTrabajao(entrada.nextLine());
 
-        System.out.println("Ingrese la fecha de contratación:");
+        System.out.println("Ingrese el salario base que tendra:");
         empleado.datosLaborales.setSalarioBase(entrada.nextDouble());
 
 
@@ -124,7 +124,7 @@ public class GestionEmpleado {
 
         if (indiceEmpleado >= 0 && indiceEmpleado < listaEmpleados.size()) {
             Empleado empleadoEliminado = listaEmpleados.remove(indiceEmpleado);
-            System.out.println("Empleado eliminado correctamente: " + empleadoEliminado.getNombreCompleto());
+            System.out.println("Empleado eliminado correctamente: " + empleadoEliminado.getNombre());
         } else {
             System.out.println("Indice de empleado no valido.");
         }
@@ -150,7 +150,7 @@ public class GestionEmpleado {
         
         System.out.println("Lista de empleados:");
         for (int i = 0; i < listaEmpleados.size(); i++) {
-            System.out.println(i + ": " + listaEmpleados.get(i).getNombreCompleto());
+            System.out.println(i + ": " + listaEmpleados.get(i).getNombre());
         }
     }
 

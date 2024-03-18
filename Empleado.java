@@ -1,4 +1,4 @@
-package com.mycompany.main;
+
 
 public class Empleado extends Persona {
     //Atributos

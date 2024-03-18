@@ -1,4 +1,3 @@
-package com.mycompany.main;
 import java.util.Scanner;
 import java.util.Calendar;
 
@@ -99,8 +98,8 @@ public class DatosLaborales {
     public void registrarEntrada(){
 
         hora = Hora.get(Calendar.HOUR_OF_DAY);
-        minutos = Hora.get (Calendar.MINUTE);
-        segundos = Horaget (Calendar.SECOND);
+        minutos = Hora.get(Calendar.MINUTE);
+        segundos = Hora.get(Calendar.SECOND);
         HoraActual = hora +":" + minutos + ":"+ segundos;
 
         dia = Fecha.get(Calendar.DATE);
@@ -119,7 +118,7 @@ public class DatosLaborales {
     public void registrarSalida(){
         hora = Hora.get(Calendar.HOUR_OF_DAY);
         minutos = Hora.get (Calendar.MINUTE);
-        segundos = Horaget (Calendar.SECOND);
+        segundos = Hora.get(Calendar.SECOND);
         HoraActual = hora +":" + minutos + ":"+ segundos;
 
         dia = Fecha.get(Calendar.DATE);
