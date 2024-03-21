@@ -1,157 +1,110 @@
-
-import java.util.Scanner;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
+import java.util.Scanner;
 
 public class GestionEmpleado {
-    Scanner entrada= new Scanner (System.in);
-    
-    //Atributos 
+    private ArrayList<Empleado> listaEmpleados = new ArrayList<Empleado>();
 
-   
-    ArrayList<Empleado> listaEmpleados = new ArrayList<Empleado>();
-
-    Empleado empleado = new Empleado();
-
-    public ArrayList<Empleado> getListaEmpleados(){
+    public ArrayList<Empleado> getListaEmpleados() {
         return listaEmpleados;
     }
 
-    public void setListaEmpleados(Empleado empleado){
-        this.listaEmpleados= listaEmpleados;
-    }
-   
-    
+    public Empleado registrarDatosEmpleado(Empleado empleado) {
+        int edad = 0;
+        long numeroTelefono = 0;
+        boolean continuar = true;
+        CredencialAcceso sesion;
+        DatoLaboral datosLaborales = new DatoLaboral();
+        Scanner input = new Scanner(System.in);
 
-    //Métodos funcionales
+        System.out.println("<---------------------------- Registro de empleado ------------------------------>");
+        System.out.println(" <- - - - - - - Datos personales - - - - - - - >");
 
-    public void registarDatosEmpleado(){
-                
-        System.out.println("\nRegistro de datos personales: \n");
+        System.out.print("Nombre: ");
+        String nombre = input.nextLine();
 
-        System.out.println("Ingrese el nombre/s del empleado:");
-        empleado.setNombre(entrada.nextLine());
+        System.out.print("Apelidos: ");
+        String apellido = input.nextLine();
 
-        System.out.println("Ingrese el apellido paterno:");
-        empleado.setApellidoPaterno(entrada.nextLine());
-
-        System.out.println("Ingrese el apellido materno:");
-        empleado.setApellidoMaterno(entrada.nextLine());
-
-        System.out.println("Ingrese la fecha de nacimiento:");
-        empleado.setFechaNacimiento(entrada.nextLine());
-
-        System.out.println("Ingrese la direccion domiciliaria:");
-        empleado.setDireccion(entrada.nextLine());
-
-        System.out.println("Ingrese el numero de telefono:");
-        empleado.setNumeroTelefono(entrada.nextLong());
-
-        System.out.println("\nRegistro de datos laborales : \n");
-
-        System.out.println("Ingrese la fecha de contratación:");
-        empleado.datosLaborales.setFechaContratacion(entrada.nextLine());
-
-        System.out.println("Ingrese el puesto de trabajo");
-        empleado.datosLaborales.setPuestoTrabajao(entrada.nextLine());
-
-        System.out.println("Ingrese el salario base que tendra:");
-        empleado.datosLaborales.setSalarioBase(entrada.nextDouble());
-
-
-        listaEmpleados.add(empleado);
-
-        System.out.println("Empleado registrado");
+        do{
+            try{
+                do {
+                    System.out.print("Edad: ");
+                    edad = input.nextInt();
+                    if(edad<=0){
+                        System.out.println("La edad no puede ser negativa, por favor introduzca un número válido");
+                    }
+                    else{
+                        System.out.println("Lo sentimos pero dicha persona no puede laborar dentro de la cafetería");
+                    }
+                } while (edad < 18);
         
+                System.out.print("Número de teléfono: ");
+                numeroTelefono = input.nextLong();
 
-    }
-
-    public void actualizarDatosEmpleado(){
-
-        mostrarListaEmpleados();
-
-    
-        System.out.println("Ingrese el indice del empleado que desea actualizar:");
-        int indiceEmpleado = entrada.nextInt();
-
+                continuar = false;
+            }
+            catch(InputMismatchException ime){
+                System.out.println("Introduzca números enteros");
+                input.nextLine();
+            }
+        }while(continuar);
         
-        if (indiceEmpleado >= 0 && indiceEmpleado < listaEmpleados.size()) {
-           
-            Empleado empleadoSeleccionado = listaEmpleados.get(indiceEmpleado);
+        input.nextLine();
 
-            
-            System.out.println("\nIngrese los nuevos datos personales para el empleado:");
-            System.out.println("Ingrese el nombre/s del empleado:");
-            empleadoSeleccionado.setNombre(entrada.nextLine());
+        System.out.print("Dirección: ");
+        String direccion = input.nextLine();
 
-            System.out.println("Ingrese el apellido paterno:");
-            empleadoSeleccionado.setApellidoPaterno(entrada.nextLine());
+        empleado.setNombre(nombre);
+        empleado.setApellido(apellido);
+        empleado.setEdad(edad);
+        empleado.setDireccion(direccion);
+        empleado.setNumeroTelefono(numeroTelefono);
 
-            System.out.println("Ingrese el apellido materno:");
-            empleadoSeleccionado.setApellidoMaterno(entrada.nextLine());
+        System.out.println(" <-  -  -  -  - Datos laborales -  -  -  -  ->");
 
-            System.out.println("Ingrese la fecha de nacimiento:");
-            empleadoSeleccionado.setFechaNacimiento(entrada.nextLine());
+        System.out.print("Fecha de contratación: ");
+        String fechaContratacion = input.nextLine();
 
-            System.out.println("Ingrese la dirección domiciliaria:");
-            empleadoSeleccionado.setDireccion(entrada.nextLine());
+        System.out.print("Puesto de trabajo: ");
+        String puestoTrabajo = input.nextLine();
 
-            System.out.println("Ingrese el número de teléfono:");
-            empleadoSeleccionado.setNumeroTelefono(entrada.nextLong());
+        System.out.print("Salario base: ");
+        int salarioBase = input.nextInt();
 
-           
-            System.out.println("\nIngrese los nuevos datos laborales para el empleado:");
-            System.out.println("Ingrese la fecha de contratación:");
-            empleadoSeleccionado.datosLaborales.setFechaContratacion(entrada.nextLine());
+        datosLaborales.setFechaContratacion(fechaContratacion);
+        datosLaborales.setPuestoTrabajo(puestoTrabajo);
+        datosLaborales.setSalarioBase(salarioBase);
 
-            System.out.println("Ingrese el puesto de trabajo:");
-            empleadoSeleccionado.datosLaborales.setPuestoTrabajao(entrada.nextLine());
+        System.out.println(" <=  =  =  =  = Credenciales de acceso =  =  =  =  => ");
 
-            System.out.println("Ingrese el salario base:");
-            empleadoSeleccionado.datosLaborales.setSalarioBase(entrada.nextDouble());
-
-            System.out.println("Datos del empleado actualizados correctamente.");
-        } else {
-            System.out.println("Indice de empleado no valido.");
-        }
-    }
-
-    public void eliminarEmpleado(){
-
-        mostrarListaEmpleados();
-
-        System.out.println("Ingrese el indice del empleado que desea eliminar:");
-        int indiceEmpleado = entrada.nextInt();
-
-        if (indiceEmpleado >= 0 && indiceEmpleado < listaEmpleados.size()) {
-            Empleado empleadoEliminado = listaEmpleados.remove(indiceEmpleado);
-            System.out.println("Empleado eliminado correctamente: " + empleadoEliminado.getNombre());
-        } else {
-            System.out.println("Indice de empleado no valido.");
-        }
-    }
-
-    
-
-    public void verHistorialTrabajoEMpleado(){
-        mostrarListaEmpleados();
-
-        System.out.println("Ingrese el indice del empleado que desea ver su historial de trabajo:");
-        int indiceEmpleado = entrada.nextInt();
-
-        if (indiceEmpleado >= 0 && indiceEmpleado < listaEmpleados.size()) {
-            
-        } else {
-            System.out.println("Indice de empleado no valido.");
-        }
-
-    }
-
-    public  void mostrarListaEmpleados() {
+        input.nextLine();
         
-        System.out.println("Lista de empleados:");
-        for (int i = 0; i < listaEmpleados.size(); i++) {
-            System.out.println(i + ": " + listaEmpleados.get(i).getNombre());
-        }
+        System.out.print("User: ");
+        String user = input.nextLine();
+
+        System.out.print("Password: ");
+        String password = input.nextLine();
+
+        sesion = new CredencialAcceso(password, user);
+
+        empleado.setDatosLaborales(datosLaborales);
+        empleado.setSesion(sesion);
+
+        this.listaEmpleados.add(empleado);
+
+        return empleado;
     }
 
+    public void actualizarDatosEmpleado() {
+        System.out.println("Bienvenido");
+    }
+
+    public void eliminarDatosEmpleado() {
+        System.out.println("Que desea realizar?");
+    }
+
+    public void verHistorialTrabajoEmpleado() {
+
+    }
 }

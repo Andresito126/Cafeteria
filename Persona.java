@@ -1,48 +1,30 @@
-
-
 public class Persona {
-
-    //Atributos
     protected String nombre;
-    protected String apellidoPaterno;
-    protected String apellidoMaterno;
-    protected int edad;
+    protected CredencialAcceso sesion;
 
-    //getters y setters
+    public Persona(){
+        
+    }
+
+    public Persona(String nombre) {
+        this.nombre = nombre;
+    }
+
     public String getNombre() {
         return nombre;
     }
+
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
-    ////
 
-
-    public String getApellidoPaterno() {
-        return apellidoPaterno;
-    }
-    public void setApellidoPaterno(String apellidoPaterno) {
-        this.apellidoPaterno = apellidoPaterno;
-    }
-    ////
-
-
-    public String getApellidoMaterno() {
-        return apellidoMaterno;
-    }
-    public void setApellidoMaterno(String apellidoMaterno) {
-        this.apellidoMaterno = apellidoMaterno;
-    }
-    ////
-
-    
-    public int getEdad() {
-        return edad;
-    }
-    public void setEdad(int edad) {
-        this.edad = edad;
+    public CredencialAcceso getSesion() {
+        return sesion;
     }
 
-    
+    public void setSesion(CredencialAcceso sesion) {
+        this.sesion = sesion;
+    }
+
     
 }
