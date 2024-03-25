@@ -84,7 +84,6 @@ public class DatoLaboral {
             String sueldoFormateado = String.format("%.2f", listaSueldo[i]);
             System.out.println(diasSemana[i] + " - " + listaAsistencia[i] + " ----- Horas trabajadas: " + horasFormateadas + " hrs. ----- Sueldo recaudado: $" + sueldoFormateado);
             sueldoTotal += listaSueldo[i];
-
             
             if (listaHoraEntrada[i] > 14.25) {
                 totalRetardosSemana++;  
@@ -238,19 +237,19 @@ public class DatoLaboral {
             horasTrabajadas= (hSalida - hEntrada);
 
             if(faltas>0){
-                horasTrabajadas -= 8; // Restar 8 horas por cada falta
+                horasTrabajadas -= 8; 
                 faltas--;
             }
 
 
             if (horasTrabajadas < 0) {
-                // Si las horas trabajadas son negativas (debido a las faltas), se establece el sueldo en 0
+                
                 sueldo = 0;
             } 
 
                 
             else {
-                // Calcular el sueldo basado en las horas trabajadas
+         
                 sueldo = salarioBase * horasTrabajadas;
             }
 
