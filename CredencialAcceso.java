@@ -20,6 +20,6 @@ public class CredencialAcceso {
     }
 
     public void setUser(String user) {
-        this.user = user;
-    }
+        this.user=user;
+}
 }
