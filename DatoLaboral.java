@@ -149,7 +149,7 @@ public class DatoLaboral {
                     }
 
                     else {
-                        System.out.println("No hay espacio disponible para registrar la salida");
+                        System.out.println("No hay espacio disponible para registrar la entrada");
                     }
                     
                 }
