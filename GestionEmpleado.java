@@ -23,14 +23,33 @@ public class GestionEmpleado {
         Scanner input = new Scanner(System.in);
         String numeroTelefonoStr = "";
 
+
         System.out.println("\n<---------------------------- Registro de empleado ------------------------------>");
         System.out.println(" \n\n<- - - - - - - Datos personales - - - - - - ->");
 
-        System.out.print("\nNombre: ");
-        String nombre = input.nextLine();
+        String nombre="";
+        String apellido="";
 
-        System.out.print("Apelidos: ");
-        String apellido = input.nextLine();
+        
+        while (true) {
+            System.out.print("\nNombre: ");
+            nombre = input.nextLine();
+            
+            if (nombre.matches("[a-zA-ZñÑ]+")) {
+                break; 
+            }
+            
+            System.out.println("Nombre/s inválido/s. Por favor, intenta de nuevo.");
+        }
+        while (true) {
+            System.out.print("Apellidos: ");
+            apellido = input.nextLine();
+            
+            if (apellido.matches("[a-zA-ZñÑ]+")) {
+                break; 
+            }
+            System.out.println("Apellido inválidos. Por favor, intenta de nuevo.");
+        }
 
         do {
             try {
@@ -51,12 +70,12 @@ public class GestionEmpleado {
                 System.out.print("Número de teléfono: ");
                 numeroTelefono = input.nextLong();
                 numeroTelefonoStr = numeroTelefonoStr.valueOf(numeroTelefono);
-                if(numeroTelefonoStr.length() == 10 && (numeroTelefonoStr.startsWith("961") || numeroTelefonoStr.startsWith("968"))){
+                if(numeroTelefonoStr.length() == 10 ){
                     System.out.println("Número de telefono establecido correctamente");
                     continuar = false;
                 }
                 else{
-                    System.out.println("La lada debe empezar con 961 o 968, además, no te olvides que el número de teléfono en general debe comprender 10 digitos");
+                    System.out.println("El número de teléfono en general debe comprender 10 digitos");
                 }        
             } 
             catch (InputMismatchException ime) {
@@ -159,7 +178,7 @@ public class GestionEmpleado {
                     do {
                         try {
                             System.out.println("\n¿Qué dato desea modificar de " + listaEmpleados.get(i).getNombre()+ "?" +
-                            "\n1.Edad \n2.Direccion \n3.Número de telefono \n4.Salario Base \n5.Usuario \n6.Contraseña \n7.Salir");
+                            "\n1.Nombre \n2.Apellido \n3.Edad \n4.Direccion \n5.Número de telefono \n6.Salario Base \n7.Usuario \n8.Contraseña \n9.Salir");
                             datoModificado = explorador.nextInt();
                         } catch (InputMismatchException e) {
                             System.out.println("\nExcepcion: " + e);
@@ -170,11 +189,24 @@ public class GestionEmpleado {
 
                         switch (datoModificado) {
                             case 1:
+                                explorador.nextLine();
+                                System.out.println("\nIngrese el nombre: ");
+                                String nombre= explorador.nextLine();
+                                listaEmpleados.get(i).setNombre(nombre);
+                                break;
+
+                            case 2:
+                                explorador.nextLine();
+                                System.out.println("\nIngrese el apellido: ");
+                                String apellido= explorador.nextLine();
+                                listaEmpleados.get(i).setApellido(apellido);
+                                break;
+                            case 3:
                                 do {
                                     try{
                                         System.out.print("\nIngresa el nuevo valor para edad de " + listaEmpleados.get(i).getNombre() + " : ");
                                         edad = explorador.nextInt();
-                                        if (edad <= 18 || edad>50) {
+                                        if (edad < 18 || edad>50) {
                                         System.out.println("\nIngresa una edad valida mayor a 18 pero menor a 50");
                                         }
                                     }
@@ -182,30 +214,29 @@ public class GestionEmpleado {
                                         System.out.println("Ingresa solo números");
                                         explorador.nextLine();
                                     }     
-                                } while (edad <= 18 || edad>50);
+                                } while (edad < 18 || edad>50);
                                 listaEmpleados.get(i).setEdad(edad);
                                 explorador.nextLine();
                                 break;
-                            case 2:
+                            case 4:
                                 System.out.print("\nIngresa la nueva dirección de " + listaEmpleados.get(i).getNombre()+ " : ");
                                 String direccion = explorador.nextLine();
                                 listaEmpleados.get(i).setDireccion(direccion);
                                 explorador.nextLine();
                                 break;
-                            case 3:
-                                System.out.println("Tu numero actual es: " + listaEmpleados.get(i).getNumeroTelefono());
+                            case 5:
+                                
                                 do {
                                     try{                 
                                         System.out.print("\nIngrese el nuevo número de teléfono de " + listaEmpleados.get(i).getNombre() + " : ");
                                         numeroTelefono = explorador.nextLong();
                                         numeroTelefonoStr = numeroTelefonoStr.valueOf(numeroTelefono);
-                                        if(numeroTelefonoStr.length() == 10 && (numeroTelefonoStr.startsWith("961") || numeroTelefonoStr.startsWith("968"))){
-                                            System.out.println("Número de telefono modificado correctamente");
+                                        if(numeroTelefonoStr.length() == 10 ){
                                             listaEmpleados.get(i).setNumeroTelefono(numeroTelefono);
                                             entradaValida = false;
                                         }
                                         else{
-                                            System.out.println("La lada debe empezar con 961 o 968, además, no te olvides que el número de teléfono en general debe comprender 10 digitos");
+                                            System.out.println("El número de teléfono en general debe comprender 10 digitos");
                                         }        
                                     } 
                                     catch (InputMismatchException e) {
@@ -213,9 +244,8 @@ public class GestionEmpleado {
                                         explorador.nextLine();
                                     }
                                 } while (entradaValida);
-                                System.out.println("Tu numero modificado es: " + listaEmpleados.get(i).getNumeroTelefono());
                                 break;
-                            case 4:
+                            case 6:
                                 do{
                                     try{
                                         System.out.print("\nIngresa el nuevo salario base de " + listaEmpleados.get(i).getNombre() + " : ");
@@ -238,26 +268,27 @@ public class GestionEmpleado {
                                 listaEmpleados.get(i).getDatosLaborales().setSalarioBase(salarioBase);
                                 explorador.nextLine();
                                 break;
-                            case 5:
+                            case 7:
                                 explorador.nextLine();
                                 System.out.print("\nIngresa el nuevo usuario de " + listaEmpleados.get(i).getNombre() + " : ");
                                 String user = explorador.nextLine();
                                 listaEmpleados.get(i).getSesion().setUser(user);
                                 login.getListaUsuarios().get(i + 1).getSesion().setUser(user);
                                 break;
-                            case 6:
+                            case 8:
                                 explorador.nextLine();
                                 System.out.print("\nIngrese el nuevo password de " + listaEmpleados.get(i).getNombre() + " : ");
                                 String password = explorador.nextLine();
                                 listaEmpleados.get(i).getSesion().setPassword(password);
                                 login.getListaUsuarios().get(i + 1).getSesion().setPassword(password);
                                 break;
-                            case 7:
+                            case 9: 
                                 System.out.println();
                                 break;
+
                         }
 
-                    } while (datoModificado != 7);
+                    } while (datoModificado != 9);
 
                     bandera = false;
                 }
