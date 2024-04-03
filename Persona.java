@@ -23,6 +23,6 @@ public class Persona {
     }
 
     public void setSesion(CredencialAcceso sesion) {
-        this.sesion =sesion;
-}
+        this.sesion = sesion;
+    }
 }

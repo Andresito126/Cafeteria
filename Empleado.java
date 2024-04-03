@@ -67,5 +67,5 @@ public class Empleado extends Persona{
 
     public void setDatosLaborales(DatoLaboral datosLaborales) {
         this.datosLaborales = datosLaborales;
-}
+    }
 }

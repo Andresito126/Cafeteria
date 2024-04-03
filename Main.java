@@ -2,13 +2,11 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Main {
-    public static void main(String[] args) {
-
-
+    public static void main(String[] args) {      
         GestionEmpleado objGestion = new GestionEmpleado();
         Login login = new Login();
         Administrador administrador = new Administrador("David");
-        CredencialAcceso acceso = new CredencialAcceso("D", "D");
+        CredencialAcceso acceso = new CredencialAcceso("Mindft", "David2502");
         administrador.setSesion(acceso);
         login.setListaUsuarios(administrador);
         boolean cicloPrograma = true;
@@ -20,7 +18,7 @@ public class Main {
 
     public static void inicioSesion(Login login, GestionEmpleado objGestion) {
         Scanner entrada = new Scanner(System.in);
-        Persona persona = new Persona();
+        Persona persona = null;
         System.out.println("\n<------------------- CAFETERIA DEL TIO ------------------->");
 
         do {
@@ -57,10 +55,8 @@ public class Main {
                 op = teclado.nextInt();
             }
             catch (InputMismatchException inputMismatchException) {
-                System.out.println("\nExcepcion: " + inputMismatchException);
                 teclado.nextLine();
-                System.out.println("Debe introducir enteros. Intente de nuevo.\n");
-                continue;
+                System.out.println("Debe introducir enteros. Intente de nuevo.");
             }
 
             switch (op) {
@@ -68,13 +64,29 @@ public class Main {
                     objGestion.registrarDatosEmpleado(login);
                     break;
                 case 2:
-                    objGestion.actualizarDatosEmpleado(login);
+                    if(objGestion.getListaEmpleados().isEmpty() == true){
+                        System.out.println("\nLo sentimos, pero no puedes actualizar datos porque no hay un empleado registrado dentro del sistema");
+                    }
+                    else{
+                        objGestion.actualizarDatosEmpleado(login);
+                    }
                     break;
                 case 3:
-                    objGestion.eliminarDatosEmpleado(login);
+                    if(objGestion.getListaEmpleados().isEmpty() == true){
+                        System.out.println("\nLo sentimos, pero no tienes acceso a eliminar un empleado, porque no hay un empleado registrado dentro del sistema");
+                    }
+                    else{
+                        objGestion.eliminarEmpleado(login);
+                    }
                     break;
                 case 4:
-                    objGestion.verHistorialTrabajoEmpleado();
+                    if(objGestion.getListaEmpleados().isEmpty() == true){
+                        System.out.println("\nLo sentimos, pero no tienes acceso a ver el historial de un empleado, porque no hay un empleado registrado dentro del sistema");
+                    }
+                    else{
+                        objGestion.verHistorialTrabajoEmpleado();
+                    }
+                    
                     break;
                 case 5:
                     System.out.println();
@@ -86,7 +98,6 @@ public class Main {
     public static void realizarSesionEmpleado(Login login, GestionEmpleado objGestion, Persona persona) {
         Scanner teclado = new Scanner(System.in);
         int seleccion = 0;
-        boolean bandera = false;
         System.out.println("\n¡Bienvenido " + persona.getNombre() + " !");
 
         do{
@@ -95,13 +106,12 @@ public class Main {
                 System.out.print("\nDigite un número de acuerdo a lo que quiera realizar: ");
                 seleccion = teclado.nextInt();
             }
+
             catch(InputMismatchException inMismatchException){
-                System.out.println("\nExcepcion: " + inMismatchException);
                 teclado.nextLine();
                 System.out.println("Digite solo enteros. Intente nuevamente");
-                continue;
             }
-
+            
             for(int i=0; i<objGestion.getListaEmpleados().size(); i++){
                 if(objGestion.getListaEmpleados().get(i).getNombre().equals(persona.getNombre())){
                     switch (seleccion) {
@@ -109,19 +119,20 @@ public class Main {
                             objGestion.getListaEmpleados().get(i).getDatosLaborales().registrarEntrada();
                             break;
                         case 2:
-                                objGestion.getListaEmpleados().get(i).getDatosLaborales().registrarSalida();
+                            objGestion.getListaEmpleados().get(i).getDatosLaborales().registrarSalida();
                             break;
                         case 3:
                             objGestion.getListaEmpleados().get(i).getDatosLaborales().calcularSalario();
-                            objGestion.getListaEmpleados().get(i).getDatosLaborales().conocerSalario();
+                            objGestion.getListaEmpleados().get(i).getDatosLaborales().conocerSalario();;
                             break;
                         case 4:
-                            System.out.println("\nSalida exitosa");
+                            System.out.println();
                             break;
                     }
                 }
             }
         }while(seleccion!=4);
-}
+    }
 
 }
+
