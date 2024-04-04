@@ -90,7 +90,7 @@ public class DatoLaboral {
             }
         }
 
-        System.out.println("\nUsted tuvo: " + totalRetardosSemana + " retardo/dds.");
+        System.out.println("\nUsted tuvo: " + totalRetardosSemana + " retardo/s.");
 
         if(totalRetardosSemana == 3){
             System.out.println("Se te ha descontado un dia por haber generado 3 retardos. Tu sueldo por dia es " + salarioDescontado);
@@ -147,6 +147,10 @@ public class DatoLaboral {
                         listaAsistencia[indice] = diaEntrada;
                         System.out.println("\nHora de entrada registrada correctamente.");
                     }
+
+                    else {
+                        System.out.println("No hay espacio disponible para registrar la entrada");
+                    }
                     
                 }
                 
@@ -200,7 +204,8 @@ public class DatoLaboral {
                         listaHoraSalida[indice] = (horaSalida + (minutoSalida / 100.0));
                         System.out.println("\nHora de salida registrada correctamente.\n");
                     } else {
-                        System.out.println("No puedes registrar salida sin haber registrado previamente tu entrada.");}
+                        System.out.println("No puedes registrar salida sin haber registrado previamente tu entrada.");
+                    }
                 }
 
                 else {
