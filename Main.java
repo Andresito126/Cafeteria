@@ -6,7 +6,7 @@ public class Main {
         GestionEmpleado objGestion = new GestionEmpleado();
         Login login = new Login();
         Administrador administrador = new Administrador("David");
-        CredencialAcceso acceso = new CredencialAcceso("a", "a");
+        CredencialAcceso acceso = new CredencialAcceso("Mindft", "David2502");
         administrador.setSesion(acceso);
         login.setListaUsuarios(administrador);
         boolean cicloPrograma = true;
