@@ -115,6 +115,10 @@ public class DatoLaboral {
                         listaAsistencia[indice] = diaEntrada;
                         System.out.println("\nHora de entrada registrada correctamente.");
                     }
+
+                    else {
+                        System.out.println("No hay espacio disponible para registrar la entrada");
+                    }
                     
                 }
                 
