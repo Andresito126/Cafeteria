@@ -5,9 +5,10 @@ public class Persona {
     public Persona(){
         
     }
-
-    public Persona(String nombre) {
+    
+    public Persona(String nombre, CredencialAcceso sesion) {
         this.nombre = nombre;
+        this.sesion = sesion;
     }
 
     public String getNombre() {

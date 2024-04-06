@@ -1,23 +1,22 @@
-public class Empleado extends Persona{
-    private String apellido;
-    private String fechaNacimiento;
-    private int edad;
-    private String direccion;
-    private long numeroTelefono;
-    private DatoLaboral datosLaborales;
+public abstract class Empleado extends Persona{
+    protected String apellido;
+    protected String fechaNacimiento;
+    protected int edad;
+    protected String direccion;
+    protected long numeroTelefono;
+    protected DatoLaboral datosLaborales;
 
     public Empleado(){
 
     }
 
-    public Empleado(String apellido, String fechaNacimiento, int edad, String direccion, long numeroTelefono, DatoLaboral datosLaborales, String nombre) {
-        super(nombre);
+    public Empleado(String apellido, String fechaNacimiento, int edad, String direccion, long numeroTelefono, String nombre, CredencialAcceso sesion) {
+        super(nombre, sesion);
         this.apellido = apellido;
         this.fechaNacimiento = fechaNacimiento;
         this.edad = edad;
         this.direccion = direccion;
         this.numeroTelefono = numeroTelefono;
-        this.datosLaborales = datosLaborales;
     }
 
     public String getApellido(){
@@ -68,4 +67,9 @@ public class Empleado extends Persona{
     public void setDatosLaborales(DatoLaboral datosLaborales) {
         this.datosLaborales = datosLaborales;
     }
+    
+    public abstract void calcularSalario();
+    
+    public abstract void conocerSalario();
+   
 }

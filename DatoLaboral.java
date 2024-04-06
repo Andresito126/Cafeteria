@@ -1,3 +1,4 @@
+
 import java.util.Scanner;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -67,39 +68,6 @@ public class DatoLaboral {
 
     // METODOS FUNCIONALES
 
-    public void conocerSalario() {
-        String[] diasSemana = { "Lunes", "Martes", "Miercoles", "Jueves", "Viernes" };
-        double sueldoTotal= 0;
-        int totalRetardosSemana = 0;
-        double salarioDescontado = 0;
-
-        for (int i = 0; i < listaSueldo.length; i++) {
-
-            String horasFormateadas = String.format("%.2f", listaHorasTrabajadas[i]);
-            String sueldoFormateado = String.format("%.2f", listaSueldo[i]);
-            System.out.println(diasSemana[i] + " - " + listaAsistencia[i] + " ----- Horas trabajadas: " + horasFormateadas + " hrs. ----- Sueldo recaudado: $" + sueldoFormateado);
-            sueldoTotal += listaSueldo[i];
-
-            if (listaHoraEntrada[i] > 16.15) {
-                totalRetardosSemana++;
-
-                if(totalRetardosSemana == 3){
-                    salarioDescontado = salarioBase/5.0;
-                    sueldoTotal = sueldoTotal - salarioDescontado;
-                }
-            }
-        }
-
-        System.out.println("\nUsted tuvo: " + totalRetardosSemana + " retardo/s.");
-
-        if(totalRetardosSemana == 3){
-            System.out.println("Se te ha descontado un dia por haber generado 3 retardos. Tu sueldo por dia es " + salarioDescontado);
-        }
-
-        System.out.println("El sueldo total es de: $" + String.format("%.2f", sueldoTotal));
-        
-    }
-
     public void registrarEntrada() {
         Calendar fechaHoy = Calendar.getInstance();
         fechaHoy.set(Calendar.HOUR_OF_DAY, 16);
@@ -146,10 +114,6 @@ public class DatoLaboral {
                         listaHoraEntrada[indice] = (horaEntrada + (minutoEntrada / 100.0));
                         listaAsistencia[indice] = diaEntrada;
                         System.out.println("\nHora de entrada registrada correctamente.");
-                    }
-
-                    else {
-                        System.out.println("No hay espacio disponible para registrar la entrada");
                     }
                     
                 }
@@ -204,8 +168,7 @@ public class DatoLaboral {
                         listaHoraSalida[indice] = (horaSalida + (minutoSalida / 100.0));
                         System.out.println("\nHora de salida registrada correctamente.\n");
                     } else {
-                        System.out.println("No puedes registrar salida sin haber registrado previamente tu entrada.");
-                    }
+                        System.out.println("No puedes registrar salida sin haber registrado previamente tu entrada.");}
                 }
 
                 else {
@@ -221,23 +184,5 @@ public class DatoLaboral {
         } while (opcion != 1);
     }
 
-    public void calcularSalario() {
-        double hEntrada = 0, hSalida = 0;
-        int faltas = 0;
-        double sueldo = 0, horasTrabajadas = 0;
-
-        for (int i = 0; i < listaHoraEntrada.length; i++) {
-
-            hEntrada = listaHoraEntrada[i];
-            hSalida = listaHoraSalida[i];
-
-            horasTrabajadas = (hSalida - hEntrada);
-
-            sueldo = ((salarioBase/35.0) * horasTrabajadas);
-
-            listaHorasTrabajadas[i] = horasTrabajadas;
-            listaSueldo[i] = sueldo;
-
-        }
-    }
+    
 }

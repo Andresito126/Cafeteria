@@ -4,10 +4,9 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {      
         GestionEmpleado objGestion = new GestionEmpleado();
-        Login login = new Login();
-        Administrador administrador = new Administrador("David");
         CredencialAcceso acceso = new CredencialAcceso("Mindft", "David2502");
-        administrador.setSesion(acceso);
+        Login login = new Login();
+        Administrador administrador = new Administrador("David",acceso);
         login.setListaUsuarios(administrador);
         boolean cicloPrograma = true;
 
@@ -102,7 +101,7 @@ public class Main {
 
         do{
             try{
-                System.out.println("\n1.Registrar hora entrada \n2.Registrar hora salida \n3.Consultar salario \n4.Salir");
+                System.out.println("\n1.Registrar hora entrada \n2.Registrar hora salida \n3.Consultar salario \n4.Agregar propina  \n5.Salir");
                 System.out.print("\nDigite un número de acuerdo a lo que quiera realizar: ");
                 seleccion = teclado.nextInt();
             }
@@ -122,17 +121,26 @@ public class Main {
                             objGestion.getListaEmpleados().get(i).getDatosLaborales().registrarSalida();
                             break;
                         case 3:
-                            objGestion.getListaEmpleados().get(i).getDatosLaborales().calcularSalario();
-                            objGestion.getListaEmpleados().get(i).getDatosLaborales().conocerSalario();;
+                            objGestion.getListaEmpleados().get(i).calcularSalario();
+                            objGestion.getListaEmpleados().get(i).conocerSalario();
                             break;
                         case 4:
+                            if(objGestion.getListaEmpleados().get(i).getDatosLaborales().getPuestoTrabajo().equals("Mesero")){
+                                Mesero mesero = (Mesero) objGestion.getListaEmpleados().get(i);
+                                mesero.agregarPropina();
+                            }
+                            
+                            else{
+                                System.out.println("\nLo sentimos, esto solo está habilitado para los meseros");
+                            }
+                            break;
+                        case 5:
                             System.out.println();
                             break;
                     }
                 }
             }
-        }while(seleccion!=4);
+        }while(seleccion!=5);
     }
 
 }
-

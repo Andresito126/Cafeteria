@@ -1,5 +1,7 @@
 public class Administrador extends Persona{
-    public Administrador(String nombre) {
-        super(nombre);
+
+    public Administrador(String nombre, CredencialAcceso sesion) {
+        super(nombre, sesion);
     }
+    
 }
