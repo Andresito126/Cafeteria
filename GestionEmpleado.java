@@ -211,6 +211,7 @@ public class GestionEmpleado {
         boolean entradaValida = true;
         long numeroTelefono = 0;
         String numeroTelefonoStr = "";
+        boolean userVerificacion;
 
         System.out.println("\n<---------------------------------------------- Modificar datos empleado --------------------------------------------------------->");
 
@@ -310,10 +311,28 @@ public class GestionEmpleado {
                             case 5:
                                 explorador.nextLine();
                                 System.out.print("\nIngresa el nuevo usuario de " + listaEmpleados.get(i).getNombre() + " : ");
-                                String user = explorador.nextLine();
-                                listaEmpleados.get(i).getSesion().setUser(user);
-                                login.getListaUsuarios().get(i + 1).getSesion().setUser(user);
-                                break;
+                                String user;
+                               
+                                do {
+                                    System.out.print("\nUsuario: ");
+                                    user = explorador.nextLine();
+                                    
+                                    userVerificacion = false; 
+                                    for (int j = 0; j < login.getListaUsuarios().size(); j++) {
+                                        if (user.equals(login.getListaUsuarios().get(j).getSesion().getUser())) {
+                                            userVerificacion = true;
+                                            
+                                        }
+                                    }
+                                    
+                                    if (userVerificacion) {
+                                        System.out.println("El usuario ya existe, por favor elija otro.");
+                                    } else {
+                                        listaEmpleados.get(i).getSesion().setUser(user);
+                                        login.getListaUsuarios().get(i + 1).getSesion().setUser(user);
+                                    }
+                                } while (userVerificacion);    
+                                break;                            
                             case 6:
                                 explorador.nextLine();
                                 System.out.print("\nIngrese el nuevo password de " + listaEmpleados.get(i).getNombre() + " : ");
