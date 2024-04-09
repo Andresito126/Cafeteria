@@ -3,13 +3,20 @@ import java.util.InputMismatchException;
 
 public class Mesero extends Empleado{
     private double listaPropina[] = new double [5];
-    private double totalPropinaDia;
             
     public Mesero() {
     }
     
     public Mesero(String apellido, String fechaNacimiento, int edad, String direccion, long numeroTelefono, String nombre, CredencialAcceso sesion) {
         super(apellido, fechaNacimiento, edad, direccion, numeroTelefono, nombre, sesion);
+    }
+
+    public double[] getListaPropina() {
+        return listaPropina;
+    }
+
+    public void setListaPropina(double[] listaPropina) {
+        this.listaPropina = listaPropina;
     }
     
     public void agregarPropina(){
@@ -18,26 +25,22 @@ public class Mesero extends Empleado{
         double [] listaHoraEntrada = datosLaborales.getListaHoraEntrada();
         double [] listaHoraSalida = datosLaborales.getListaHoraSalida();
 
-        for(int i=0; i<listaHoraSalida.length; i++){
-            if(listaHoraEntrada[i] != 0 && listaHoraSalida[i] == 0){
-                do{
-                    try{
-                        System.out.print("Hola " + nombre + " .Ingresa la cantidad de propina que te acaban de dar: ");
-                        propina = in.nextDouble(); 
-                        if(propina<=0){
-                           System.out.println("\nError, no puedes ingresar números negativos o el cero");
+        for (int i = 0; i < listaHoraSalida.length; i++) {
+            if (listaHoraEntrada[i] != 0 && listaHoraSalida[i] == 0) {
+                do {
+                    try {
+                        System.out.print("Hola " + nombre + ". Ingresa la cantidad de propina que te acaban de dar: ");
+                        propina = in.nextDouble();
+                        if (propina <= 0) {
+                            System.out.println("\nError, no puedes ingresar números negativos o el cero");
                         }
-                    }
-                            
-                    catch(InputMismatchException input){
+                    } catch (InputMismatchException input) {
                         System.out.println("\nIngresa solo números");
                         in.nextLine();
                     }
-                            
-                }while(propina<=0);
-                
-                totalPropinaDia = totalPropinaDia + propina;
-                listaPropina[i] = totalPropinaDia;
+                } while (propina <= 0);
+
+                listaPropina[i] += propina;
             }
         }
     }
@@ -105,7 +108,7 @@ public class Mesero extends Empleado{
         System.out.println("El sueldo generado es de: $" + String.format("%.2f", sueldoTotal));
         System.out.println("Haz recibido $" + propinaTotal + " de propina");
         System.out.println("Tu salario total es " + String.format("%.2f", sueldoTotal + propinaTotal));
+        
     }
     
 }
-
