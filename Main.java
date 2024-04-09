@@ -2,7 +2,7 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Main {
-    public static void main(String[] args) {      
+    public static void main(String[] args) {   
         GestionEmpleado objGestion = new GestionEmpleado();
         CredencialAcceso acceso = new CredencialAcceso("Mindft", "David2502");
         Login login = new Login();
@@ -122,7 +122,9 @@ public class Main {
                             objGestion.getListaEmpleados().get(i).getDatosLaborales().registrarEntrada();
                             break;
                         case 2:
-                            objGestion.getListaEmpleados().get(i).getDatosLaborales().registrarSalida();
+                            if(objGestion.getListaEmpleados().get(i).getDatosLaborales().registrarSalida()==true){
+                                seleccion=5;
+                            }                            
                             break;
                         case 3:
                             objGestion.getListaEmpleados().get(i).calcularSalario();

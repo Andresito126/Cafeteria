@@ -10,7 +10,7 @@ public class DatoLaboral {
     private double listaHoraEntrada[] = new double[5];
     private double listaHoraSalida[] = new double[5];
     private int salarioBase;
-    private int retardos;
+    private int retardos = 0;
     private String fechaContratacion;
     private String puestoTrabajo;
 
@@ -134,7 +134,7 @@ public class DatoLaboral {
         } while (opcion!=1);
     }
     
-    public void registrarSalida() {
+    public boolean registrarSalida() {
         Calendar fechaHoy = Calendar.getInstance();
         fechaHoy.set(Calendar.HOUR_OF_DAY, 23);
         fechaHoy.set(Calendar.MINUTE, 0);
@@ -147,6 +147,8 @@ public class DatoLaboral {
         int minutoSalida = fechaHoy.get(Calendar.MINUTE);
         int opcion = 0;
         int indice = 0;
+        
+        boolean bandera = false;
 
         do {
             try {
@@ -170,6 +172,7 @@ public class DatoLaboral {
                     if (listaHoraEntrada[indice] != 0) {
                         listaHoraSalida[indice] = (horaSalida + (minutoSalida / 100.0));
                         System.out.println("\nHora de salida registrada correctamente.\n");
+                        bandera = true;
                     } else {
                         System.out.println("No puedes registrar salida sin haber registrado previamente tu entrada.");}
                 }
@@ -185,6 +188,8 @@ public class DatoLaboral {
             }
 
         } while (opcion != 1);
+        
+        return bandera;
     }
 
     

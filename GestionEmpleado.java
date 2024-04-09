@@ -1,3 +1,4 @@
+import java.text.DecimalFormat;
 import java.time.format.DateTimeParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -24,22 +25,40 @@ public class GestionEmpleado {
         boolean continuar = true;
         String fechaNacimiento = "";
         String puestoTrabajo = "";
-        CredencialAcceso sesion;
+        CredencialAcceso sesion = null;
         DatoLaboral datosLaborales = new DatoLaboral();
         Scanner input = new Scanner(System.in);
         String numeroTelefonoStr = "";
-
+        String user = "";
+        String password = "";
+        
+        
         System.out.println("\n<---------------------------- Registro de empleado ------------------------------>");
         
         System.out.println(" \n<-  -  -  - - Credenciales de acceso -  -  -  -  -> ");
+        
+        boolean userVerificacion;
+        
+        do{
+            System.out.print("\nUsuario: ");
+            user = input.nextLine();
+            userVerificacion = false;
 
-        System.out.print("\nUsuario: ");
-        String user = input.nextLine();
+            for (int i = 0; i < login.getListaUsuarios().size(); i++) {
+                if (user.equals(login.getListaUsuarios().get(i).getSesion().getUser())) {
+                    System.out.println("El usuario ya existe, por favor elija otro.");
+                    userVerificacion = true;
+                }
+            }
+
+        }while (userVerificacion);
 
         System.out.print("Contraseña: ");
-        String password = input.nextLine();
-
+        password = input.nextLine();
+            
         sesion = new CredencialAcceso(password, user);
+
+        continuar=true;
         
         System.out.println(" \n\n<- - - - - - - Datos personales - - - - - - ->");
 
@@ -195,6 +214,7 @@ public class GestionEmpleado {
         int edad = 0;
         int salarioBase = 0;
         boolean entradaValida = true;
+        boolean userVerificacion;
         long numeroTelefono = 0;
         String numeroTelefonoStr = "";
 
@@ -293,13 +313,32 @@ public class GestionEmpleado {
                                 listaEmpleados.get(i).getDatosLaborales().setSalarioBase(salarioBase);
                                 explorador.nextLine();
                                 break;
-                            case 5:
+                           case 5:
                                 explorador.nextLine();
                                 System.out.print("\nIngresa el nuevo usuario de " + listaEmpleados.get(i).getNombre() + " : ");
-                                String user = explorador.nextLine();
-                                listaEmpleados.get(i).getSesion().setUser(user);
-                                login.getListaUsuarios().get(i + 1).getSesion().setUser(user);
-                                break;
+                                String user;
+                               
+                                do {
+                                    System.out.print("\nUsuario: ");
+                                    user = explorador.nextLine();
+                                    
+                                    userVerificacion = false; 
+                                    for (int j = 0; j < login.getListaUsuarios().size(); j++) {
+                                        if (user.equals(login.getListaUsuarios().get(j).getSesion().getUser())) {
+                                            userVerificacion = true;
+                                            
+                                        }
+                                    }
+                                    
+                                    if (userVerificacion) {
+                                        System.out.println("El usuario ya existe, por favor elija otro.");
+                                    } else {
+                                        listaEmpleados.get(i).getSesion().setUser(user);
+                                        login.getListaUsuarios().get(i + 1).getSesion().setUser(user);
+                                    }
+                                } while (userVerificacion);    
+                            break;
+                               
                             case 6:
                                 explorador.nextLine();
                                 System.out.print("\nIngrese el nuevo password de " + listaEmpleados.get(i).getNombre() + " : ");
@@ -378,6 +417,7 @@ public class GestionEmpleado {
         int horaS = 0, minutoS = 0;
         String sueldoFormateado;
         Empleado empleadoHistorial = null;
+        DecimalFormat df = new DecimalFormat("#.##");
 
         System.out.println("\n\n<------------------------ Historial laboral del empleado ------------------------>");
 
@@ -397,7 +437,7 @@ public class GestionEmpleado {
                 }
             }
 
-            if(bandera == true){
+            if(bandera){    
                 System.out.println("\nLa persona " + nombreEmpleadoABuscar + " no se encuentra dentro del sistema o está mal escrito. Intenta nuevamente.");
             }
         }while(bandera);
@@ -422,8 +462,9 @@ public class GestionEmpleado {
             horaS = (int) horaEspecificaDiaS;
             minutoS = (int)((horaEspecificaDiaS-horaS)*100);                   
             
-            sueldoFormateado = String.format("%.2f", listaSueldo[i]);
-            System.out.println("   " + diasSemana[i] + "\t\t\t   " + horaE + ":" + minutoE + "\t\t   " + horaS + ":" + minutoS + "\t\t " + sueldoFormateado);
+            sueldoFormateado = String.format("%.2f",listaSueldo[i]);
+            System.out.println("   " + diasSemana[i] + "\t\t\t   " + horaE + ":" + minutoE + "\t\t          " + horaS + ":" + minutoS + "\t\t         " + sueldoFormateado);
+            
         }
     }
 }
