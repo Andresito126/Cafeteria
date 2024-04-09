@@ -40,11 +40,10 @@ public class GestionEmpleado {
             user = input.nextLine();
             userVerificacion = false;
 
-            for (Persona usuario : login.getListaUsuarios()) {
-                if (usuario.getSesion().getUser().equals(user)) {
+            for (int i = 0; i < login.getListaUsuarios().size(); i++) {
+                if (user.equals(login.getListaUsuarios().get(i).getSesion().getUser())) {
                     System.out.println("El usuario ya existe, por favor elija otro.");
                     userVerificacion = true;
-                    break;
                 }
             }
 
