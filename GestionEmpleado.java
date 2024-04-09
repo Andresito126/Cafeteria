@@ -15,7 +15,7 @@ public class GestionEmpleado {
     }
 
     public void registrarDatosEmpleado(Login login)
-        throws InputMismatchException, DateTimeParseException {
+            throws InputMismatchException, DateTimeParseException {
         int edad = 0;
         int salarioBase = 0;
         int opcionTrabajo = 0;
@@ -28,19 +28,34 @@ public class GestionEmpleado {
         DatoLaboral datosLaborales = new DatoLaboral();
         Scanner input = new Scanner(System.in);
         String numeroTelefonoStr = "";
+        boolean userVerificacion;
 
         System.out.println("\n<---------------------------- Registro de empleado ------------------------------>");
-        
+
         System.out.println(" \n<-  -  -  - - Credenciales de acceso -  -  -  -  -> ");
 
-        System.out.print("\nUsuario: ");
-        String user = input.nextLine();
+        String user;
+        do{
+            System.out.print("\nUsuario: ");
+            user = input.nextLine();
+            userVerificacion = false;
+
+            for (Persona usuario : login.getListaUsuarios()) {
+                if (usuario.getSesion().getUser().equals(user)) {
+                    System.out.println("El usuario ya existe, por favor elija otro.");
+                    userVerificacion = true;
+                    break;
+                }
+            }
+
+        }while (userVerificacion);
+
 
         System.out.print("Contraseña: ");
         String password = input.nextLine();
 
         sesion = new CredencialAcceso(password, user);
-        
+
         System.out.println(" \n\n<- - - - - - - Datos personales - - - - - - ->");
 
         System.out.print("\nNombre: ");
@@ -48,7 +63,7 @@ public class GestionEmpleado {
 
         System.out.print("Apelidos: ");
         String apellido = input.nextLine();
-        
+
         do {
             System.out.print("Formato de fecha nacimiento dd/MM/yyyy '27/02/2005' \nFecha de nacimiento: ");
             fechaNacimiento = input.nextLine();
@@ -63,35 +78,35 @@ public class GestionEmpleado {
                     System.out.println("\nEl año de nacimiento debe ser mayor o igual a " + (compararNacimiento.getYear()-18));
                 }
                 else{
-                  continuar = false;  
+                    continuar = false;
                 }
-            } 
+            }
             catch (DateTimeParseException e) {
                 System.out.println("La fecha no coincide con el formato");
-                input.nextLine();   
+                input.nextLine();
             }
         } while (continuar);
-        
+
         continuar = true;
-        
+
         LocalDate date = LocalDate.now();
         int edadCorrespondiente = date.getYear() - añoNacimiento;
-        
+
         do {
             try {
                 System.out.print("Edad: ");
                 edad = input.nextInt();
                 if (edad != edadCorrespondiente) {
                     System.out.println("La edad no coincide con el año de nacimiento,por favor introduzca un número válido");
-                }       
-            } 
+                }
+            }
             catch (InputMismatchException ime) {
                 System.out.println("Introduzca números enteros");
                 input.nextLine();
             }
         } while (edad != edadCorrespondiente);
 
-         do {
+        do {
             try {
                 System.out.print("Número de teléfono: ");
                 numeroTelefono = input.nextLong();
@@ -117,9 +132,9 @@ public class GestionEmpleado {
         LocalDate fechaContrata = LocalDate.now();
         DateTimeFormatter format = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         String fechaContratacion = fechaContrata.format(format);
-        
+
         System.out.print("\nFecha de contratación: " + fechaContratacion);
-        
+
         do{
             try{
                 System.out.println("\nPuesto de trabajo: \n1.Mesero \n2.Cajero \n3.Cocinero");
@@ -130,7 +145,7 @@ public class GestionEmpleado {
                 input.nextLine();
             }
         }while(opcionTrabajo <1 || opcionTrabajo >3);
-        
+
         do{
             try{
                 System.out.print("Salario base: ");
@@ -138,19 +153,19 @@ public class GestionEmpleado {
 
                 if (salarioBase <= 0) {
                     System.out.println("\nEl salario no puede ser un número negativo o cero, por favor introduzca un número válido");
-                } 
+                }
                 else {
                     if (salarioBase < 1100 || salarioBase > 1500) {
                         System.out.println("\nEl salario debe comprender entre $1100 a $1500");
                     }
-                }   
+                }
             }
             catch(InputMismatchException iException){
                 System.out.println("\nDigite números enteros");
                 input.nextLine();
             }
         }while(salarioBase <= 0 || salarioBase < 1100 || salarioBase > 1500);
-        
+
         if(opcionTrabajo==1){
             Mesero mesero = new Mesero(apellido,fechaNacimiento,edad,direccion,numeroTelefono,nombre,sesion);
             puestoTrabajo = "Mesero";
@@ -159,7 +174,7 @@ public class GestionEmpleado {
             datosLaborales.setSalarioBase(salarioBase);
             mesero.setDatosLaborales(datosLaborales);
             this.listaEmpleados.add(mesero);
-            login.setListaUsuarios(mesero);                   
+            login.setListaUsuarios(mesero);
         }
         else{
             if(opcionTrabajo == 2){
@@ -183,11 +198,11 @@ public class GestionEmpleado {
                 login.setListaUsuarios(cocinero);
             }
         }
-       
+
     }
 
-    public void actualizarDatosEmpleado(Login login) 
-        throws InputMismatchException {
+    public void actualizarDatosEmpleado(Login login)
+            throws InputMismatchException {
         Scanner explorador = new Scanner(System.in);
         String nombreBusqueda;
         int datoModificado = 0;
@@ -199,12 +214,12 @@ public class GestionEmpleado {
         String numeroTelefonoStr = "";
 
         System.out.println("\n<---------------------------------------------- Modificar datos empleado --------------------------------------------------------->");
-        
+
         System.out.println("\n\nNombre\t\tEdad\t\tNúmero de teléfono\t\tDirección\t\t\tSalario base\t\tUsuario\t\tContraseña");
         for(int i=0; i<listaEmpleados.size(); i++){
-            System.out.println(listaEmpleados.get(i).getNombre() + "\t " + listaEmpleados.get(i).getEdad() + "\t\t    " + listaEmpleados.get(i).getNumeroTelefono()  
-            + "\t\t" + listaEmpleados.get(i).getDireccion() + "\t\t    " + listaEmpleados.get(i).getDatosLaborales().getSalarioBase()
-            + "\t\t" + listaEmpleados.get(i).getSesion().getUser()  + "\t\t    " + listaEmpleados.get(i).getSesion().getPassword());
+            System.out.println(listaEmpleados.get(i).getNombre() + "\t " + listaEmpleados.get(i).getEdad() + "\t\t    " + listaEmpleados.get(i).getNumeroTelefono()
+                    + "\t\t" + listaEmpleados.get(i).getDireccion() + "\t\t    " + listaEmpleados.get(i).getDatosLaborales().getSalarioBase()
+                    + "\t\t" + listaEmpleados.get(i).getSesion().getUser()  + "\t\t    " + listaEmpleados.get(i).getSesion().getPassword());
         }
 
         do {
@@ -216,7 +231,7 @@ public class GestionEmpleado {
                     do {
                         try {
                             System.out.println("\n¿Qué dato desea modificar de " + listaEmpleados.get(i).getNombre()+ "?" +
-                            "\n1.Edad \n2.Direccion \n3.Número de telefono \n4.Salario Base \n5.Usuario \n6.Contraseña \n7.Salir");
+                                    "\n1.Edad \n2.Direccion \n3.Número de telefono \n4.Salario Base \n5.Usuario \n6.Contraseña \n7.Salir");
                             datoModificado = explorador.nextInt();
                         } catch (InputMismatchException e) {
                             explorador.nextLine();
@@ -231,9 +246,9 @@ public class GestionEmpleado {
                                         System.out.print("\nIngresa el nuevo valor para edad de " + listaEmpleados.get(i).getNombre() + " : ");
                                         edad = explorador.nextInt();
                                         if (edad <= 18 || edad>45) {
-                                        System.out.println("\nIngresa una edad valida mayor a 18 pero menor a 46");
+                                            System.out.println("\nIngresa una edad valida mayor a 18 pero menor a 46");
                                         }
-                                        
+
                                         if(edad == listaEmpleados.get(i).getEdad()){
                                             System.out.println("\nLa edad no puede ser igual a lo que se tiene previamente, debe ser diferente");
                                         }
@@ -241,7 +256,7 @@ public class GestionEmpleado {
                                     catch(InputMismatchException smallException){
                                         System.out.println("Ingresa solo números");
                                         explorador.nextLine();
-                                    }     
+                                    }
                                 } while (edad == listaEmpleados.get(i).getEdad() || edad<=18 || edad>45);
                                 listaEmpleados.get(i).setEdad(edad);
                                 explorador.nextLine();
@@ -254,36 +269,36 @@ public class GestionEmpleado {
                                 break;
                             case 3:
                                 do {
-                                     try {
-                                         System.out.print("\nIngrese el nuevo número de teléfono de " + listaEmpleados.get(i).getNombre() + " : ");
-                                         numeroTelefono = explorador.nextLong();
-                                         numeroTelefonoStr = numeroTelefonoStr.valueOf(numeroTelefono);
-                                         if (numeroTelefonoStr.length() == 10) {
-                                             listaEmpleados.get(i).setNumeroTelefono(numeroTelefono);
-                                             entradaValida = false;
-                                         } else {
-                                             System.out.println("El número de teléfono en general debe comprender 10 digitos");
-                                         }
-                                     } catch (InputMismatchException e) {
-                                         System.out.println("Introduzca números enteros");
-                                         explorador.nextLine();
-                                     }
-                                 } while (entradaValida);
+                                    try {
+                                        System.out.print("\nIngrese el nuevo número de teléfono de " + listaEmpleados.get(i).getNombre() + " : ");
+                                        numeroTelefono = explorador.nextLong();
+                                        numeroTelefonoStr = numeroTelefonoStr.valueOf(numeroTelefono);
+                                        if (numeroTelefonoStr.length() == 10) {
+                                            listaEmpleados.get(i).setNumeroTelefono(numeroTelefono);
+                                            entradaValida = false;
+                                        } else {
+                                            System.out.println("El número de teléfono en general debe comprender 10 digitos");
+                                        }
+                                    } catch (InputMismatchException e) {
+                                        System.out.println("Introduzca números enteros");
+                                        explorador.nextLine();
+                                    }
+                                } while (entradaValida);
                                 break;
                             case 4:
                                 do{
                                     try{
                                         System.out.print("\nIngresa el nuevo salario base de " + listaEmpleados.get(i).getNombre() + " : ");
                                         salarioBase = explorador.nextInt();
-                        
+
                                         if (salarioBase <= 0) {
                                             System.out.println("\nEl salario no puede ser un número negativo o cero, por favor introduzca un número válido");
-                                        } 
+                                        }
                                         else {
                                             if (salarioBase < 1100 || salarioBase > 1500) {
                                                 System.out.println("\nEl salario debe comprender entre $1100 a $1500");
                                             }
-                                        }   
+                                        }
                                     }
                                     catch(InputMismatchException iException){
                                         System.out.println("\nDigite números enteros");
@@ -330,7 +345,7 @@ public class GestionEmpleado {
         String empleadoAEliminar;
         boolean bandera = true;
         System.out.println("\n<---------------------- Eliminar empleado ------------------------>");
-        
+
         System.out.println("\nLista de empleados por nombre: ");
         for(int i=0; i<listaEmpleados.size(); i++){
             System.out.println("Empleado " + (i+1) + ": " + listaEmpleados.get(i).getNombre());
@@ -385,7 +400,7 @@ public class GestionEmpleado {
         for(int i=0; i<listaEmpleados.size(); i++){
             System.out.println("Empleado " + (i+1) + ": " + listaEmpleados.get(i).getNombre());
         }
-        
+
         do{
             System.out.print("\nIngrese el nombre del empleado que desee ver su historial de trabajo: ");
             nombreEmpleadoABuscar = teclado.nextLine();
@@ -416,14 +431,23 @@ public class GestionEmpleado {
             horaEspecificaDiaE = listaHoraEntrada[i];
             horaE = (int) horaEspecificaDiaE;
             minutoE = (int)((horaEspecificaDiaE-horaE)*100);
-                
+
             //Salida
             horaEspecificaDiaS = listaHoraSalida[i];
             horaS = (int) horaEspecificaDiaS;
-            minutoS = (int)((horaEspecificaDiaS-horaS)*100);                   
-            
+            minutoS = (int)((horaEspecificaDiaS-horaS)*100);
+
             sueldoFormateado = String.format("%.2f", listaSueldo[i]);
             System.out.println("   " + diasSemana[i] + "\t\t\t   " + horaE + ":" + minutoE + "\t\t   " + horaS + ":" + minutoS + "\t\t " + sueldoFormateado);
         }
+
+        double propinaTotal = 0;
+        if (empleadoHistorial instanceof Mesero) {
+            double[] listaPropina = ((Mesero) empleadoHistorial).getListaPropina();
+            for (int i = 0; i < listaHoraEntrada.length; i++)
+                propinaTotal += listaPropina[i];
+        }
+        System.out.print("\t\nLa propina semanal que junto es de: " + propinaTotal+"\n");
     }
+
 }

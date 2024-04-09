@@ -4,14 +4,23 @@ import java.util.InputMismatchException;
 public class Mesero extends Empleado{
     private double listaPropina[] = new double [5];
     private double totalPropinaDia;
-            
+
+    public double[] getListaPropina() {
+        return listaPropina;
+    }
+
+    public void setListaPropina(double[] listaPropina) {
+        this.listaPropina = listaPropina;
+    }
+
+
     public Mesero() {
     }
-    
+
     public Mesero(String apellido, String fechaNacimiento, int edad, String direccion, long numeroTelefono, String nombre, CredencialAcceso sesion) {
         super(apellido, fechaNacimiento, edad, direccion, numeroTelefono, nombre, sesion);
     }
-    
+
     public void agregarPropina(){
         Scanner in = new Scanner(System.in);
         double propina = 0;
@@ -23,25 +32,25 @@ public class Mesero extends Empleado{
                 do{
                     try{
                         System.out.print("Hola " + nombre + " .Ingresa la cantidad de propina que te acaban de dar: ");
-                        propina = in.nextDouble(); 
+                        propina = in.nextDouble();
                         if(propina<=0){
                            System.out.println("\nError, no puedes ingresar números negativos o el cero");
                         }
                     }
-                            
+
                     catch(InputMismatchException input){
                         System.out.println("\nIngresa solo números");
                         in.nextLine();
                     }
-                            
+
                 }while(propina<=0);
-                
+
                 totalPropinaDia = totalPropinaDia + propina;
                 listaPropina[i] = totalPropinaDia;
             }
         }
     }
-    
+
     @Override
     public void calcularSalario() {
         double [] listaHoraEntrada = datosLaborales.getListaHoraEntrada();
@@ -50,7 +59,7 @@ public class Mesero extends Empleado{
         double [] listaSueldo = datosLaborales.getListaSueldo();
         double hEntrada = 0, hSalida = 0;
         double sueldo = 0, horasTrabajadas = 0;
-        
+
         for (int i = 0; i < listaHoraEntrada.length; i++) {
 
             hEntrada = listaHoraEntrada[i];
@@ -64,7 +73,7 @@ public class Mesero extends Empleado{
             listaSueldo[i] = sueldo;
         }
     }
-    
+
     @Override
     public void conocerSalario() {
         String[] diasSemana = { "Lunes", "Martes", "Miercoles", "Jueves", "Viernes" };
@@ -106,6 +115,6 @@ public class Mesero extends Empleado{
         System.out.println("Haz recibido $" + propinaTotal + " de propina");
         System.out.println("Tu salario total es " + String.format("%.2f", sueldoTotal + propinaTotal));
     }
-    
+
 }
 
