@@ -19,14 +19,13 @@ public abstract class Empleado extends Persona{
         this.numeroTelefono = numeroTelefono;
     }
 
-    public String getApellido(){
+    public String getApellido() {
         return apellido;
     }
-    
-    public void setApellido(String apellido){
+
+    public void setApellido(String apellido) {
         this.apellido = apellido;
     }
-
 
     public String getFechaNacimiento() {
         return fechaNacimiento;
@@ -36,11 +35,11 @@ public abstract class Empleado extends Persona{
         this.fechaNacimiento = fechaNacimiento;
     }
 
-    public int getEdad(){
+    public int getEdad() {
         return edad;
     }
 
-    public void setEdad(int edad){
+    public void setEdad(int edad) {
         this.edad = edad;
     }
 
@@ -67,7 +66,7 @@ public abstract class Empleado extends Persona{
     public void setDatosLaborales(DatoLaboral datosLaborales) {
         this.datosLaborales = datosLaborales;
     }
-    
+
     public abstract void calcularSalario();
     
     public abstract void conocerSalario();

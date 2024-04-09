@@ -55,7 +55,8 @@ public class Main {
             }
             catch (InputMismatchException inputMismatchException) {
                 teclado.nextLine();
-                System.out.println("Debe introducir enteros. Intente de nuevo.");
+                System.out.println("\nDebe introducir enteros. Intente de nuevo.");
+                continue;
             }
 
             switch (op) {
@@ -85,16 +86,18 @@ public class Main {
                     else{
                         objGestion.verHistorialTrabajoEmpleado();
                     }
-                    
                     break;
                 case 5:
                     System.out.println();
                     break;
+                default :
+                    System.out.println("Ingrese un número comprendido entre las distintas opciones");
             }
         } while (op!=5);
     }
 
-    public static void realizarSesionEmpleado(Login login, GestionEmpleado objGestion, Persona persona) {
+    public static void realizarSesionEmpleado(Login login, GestionEmpleado objGestion, Persona persona) 
+        throws InputMismatchException {
         Scanner teclado = new Scanner(System.in);
         int seleccion = 0;
         System.out.println("\n¡Bienvenido " + persona.getNombre() + " !");
@@ -109,6 +112,7 @@ public class Main {
             catch(InputMismatchException inMismatchException){
                 teclado.nextLine();
                 System.out.println("Digite solo enteros. Intente nuevamente");
+                continue;
             }
             
             for(int i=0; i<objGestion.getListaEmpleados().size(); i++){

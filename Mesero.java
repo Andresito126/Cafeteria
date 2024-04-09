@@ -23,27 +23,22 @@ public class Mesero extends Empleado{
                 do{
                     try{
                         System.out.print("Hola " + nombre + " .Ingresa la cantidad de propina que te acaban de dar: ");
-                        propina = in.nextDouble();
+                        propina = in.nextDouble(); 
                         if(propina<=0){
                            System.out.println("\nError, no puedes ingresar números negativos o el cero");
                         }
                     }
                             
                     catch(InputMismatchException input){
-                        System.out.println(" \nIngresa solo números");
+                        System.out.println("\nIngresa solo números");
                         in.nextLine();
                     }
                             
                 }while(propina<=0);
                 
-                System.out.println(propina);
-                
                 totalPropinaDia = totalPropinaDia + propina;
-                
-                System.out.println(totalPropinaDia);
-                
                 listaPropina[i] = totalPropinaDia;
-            }            
+            }
         }
     }
     
@@ -55,7 +50,6 @@ public class Mesero extends Empleado{
         double [] listaSueldo = datosLaborales.getListaSueldo();
         double hEntrada = 0, hSalida = 0;
         double sueldo = 0, horasTrabajadas = 0;
-        int faltas = 0;
         
         for (int i = 0; i < listaHoraEntrada.length; i++) {
 
@@ -68,7 +62,6 @@ public class Mesero extends Empleado{
 
             listaHorasTrabajadas[i] = horasTrabajadas;
             listaSueldo[i] = sueldo;
-        
         }
     }
     
@@ -115,3 +108,4 @@ public class Mesero extends Empleado{
     }
     
 }
+

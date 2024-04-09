@@ -1,4 +1,3 @@
-
 import java.util.Scanner;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -115,6 +114,10 @@ public class DatoLaboral {
                         listaAsistencia[indice] = diaEntrada;
                         System.out.println("\nHora de entrada registrada correctamente.");
                     }
+
+                    else {
+                        System.out.println("No hay espacio disponible para registrar la entrada");
+                    }
                     
                 }
                 
@@ -130,7 +133,7 @@ public class DatoLaboral {
 
         } while (opcion!=1);
     }
-
+    
     public void registrarSalida() {
         Calendar fechaHoy = Calendar.getInstance();
         fechaHoy.set(Calendar.HOUR_OF_DAY, 23);
